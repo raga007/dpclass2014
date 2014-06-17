@@ -1,0 +1,118 @@
+.navbar {
+	font-family: Tahoma,Verdana;
+	font-size: 10px;
+}
+
+.navbarPlaylist {
+	font-family: Tahoma,Verdana;
+	font-size: 10px;
+}
+
+.navbarlink {
+	font-family: Tahoma,Verdana;
+	font-size: 10px;
+	font-weight : bold;
+	color : #0066CC;
+}
+
+.navbarHeading {
+	font-family: Tahoma,Verdana;
+	font-size: 12px;
+	font-weight : bold;
+	color : #000000;
+}
+
+.forminput {
+	font-family : Tahoma, Verdana, Helvetica, sans-serif;
+	font-weight : bold;
+	font-size : 8pt;
+	color : Black;
+	border: 1px solid #999999;
+}
+
+.navbarPlaylistLink {
+	font-family: Tahoma, Verdana;
+	font-size: 10px;
+	color: black;
+	text-decoration: none;
+}
+
+.navbarPlaylistLink:HOVER {
+	font-family: Tahoma, Verdana;
+	font-size: 10px;
+	color: black;
+	text-decoration: underline;
+}
+
+.splashBold {
+	font-family: Tahoma, Verdana;
+	font-size: 12px;
+	color: black;
+	font-weight: bold;
+}
+
+.splashNormal {
+	font-family: Tahoma, Verdana;
+	font-size: 12px;
+	color: black;
+}
+
+
+.bodyText {
+	font-family: Tahoma,Verdana;
+	font-size: 12px;
+	color: #000000;
+}
+
+.actionLink {
+	font-family: Tahoma,Verdana;
+	font-size: 12px;
+	color: #0066CC;
+	font-weight: bold;
+}
+
+
+
+.tableHead
+{
+	font-family: Tahoma,Verdana;
+	font-weight: bold;
+	font-size: 8pt;
+	color: Black;
+}
+
+.tableBody
+{
+	font-family: Tahoma,Verdana;
+	font-size: 8pt;
+	color: Black;
+}
+
+
+
+DIV.browseletters
+{
+		font-family: Tahoma,Verdana,sans-serif;
+		font-weight: bold;
+		font-size: 12px;
+		text-decoration: none;
+		color: #0066CC;
+}
+
+A.browseletters
+{
+	font-family: Tahoma,Verdana,sans-serif;
+	font-weight: bold;
+	font-size: 12px;
+	text-decoration: none;
+	color: #000000;
+}
+
+A:HOVER.browseletters
+{
+	font-family: Tahoma,Verdana,sans-serif;
+	font-weight: bold;
+	font-size: 12px;
+	text-decoration: underline;
+	color: #ffffff;
+}

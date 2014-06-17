@@ -1,0 +1,13 @@
+com.neoworks.connectionpool
+com.neoworks.jukex
+com.neoworks.jukex.client.html.standard
+com.neoworks.jukex.client.tui
+com.neoworks.jukex.query
+com.neoworks.jukex.sqlimpl
+com.neoworks.jukex.tracksource
+com.neoworks.jukex.tracksource.filter
+com.neoworks.mpeg
+com.neoworks.rdc
+com.neoworks.shout
+com.neoworks.util
+helliker.id3

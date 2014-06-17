@@ -1,0 +1,111 @@
+/***************************************************************************
+    Copyright          : (C) 2002 by Neoworks Limited. All rights reserved
+    URL                : http://www.neoworks.com
+ ***************************************************************************/
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+
+DROP TABLE Track;
+DROP TABLE Attribute;
+DROP TABLE AttributeValue;
+DROP TABLE AttributeEnum;
+DROP TABLE Playlist;
+DROP TABLE PlaylistEntry;
+DROP TABLE PlaylistRestriction;
+DROP TABLE Pipeline;
+DROP TABLE PipelineBlackboard;
+
+
+CREATE TABLE Track 
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	url VARCHAR(255) NOT NULL,
+	updated BIGINT NOT NULL,
+	PRIMARY KEY (id),
+	INDEX (url)
+);
+
+CREATE TABLE Attribute
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	type SMALLINT NOT NULL,
+	PRIMARY KEY (id),
+	INDEX (name)
+);
+
+CREATE TABLE AttributeValue
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	trackid INT NOT NULL,
+	attributeid INT NOT NULL,
+	attributeenumid INT,
+	numericvalue INT,
+	PRIMARY KEY (id),
+	INDEX (attributeid),
+	INDEX (attributeenumid),
+	INDEX (numericvalue),
+	INDEX (trackid)
+);
+
+CREATE TABLE AttributeEnum
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	attributeid MEDIUMINT NOT NULL,
+	value VARCHAR(255) NOT NULL,
+	PRIMARY KEY (id),
+	INDEX (attributeid)
+);
+
+CREATE TABLE Playlist
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	PRIMARY KEY (id)
+);
+
+CREATE TABLE PlaylistEntry
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	playlistid INT NOT NULL,
+	trackid INT NOT NULL,
+	position INT NOT NULL,
+	PRIMARY KEY (id),
+	INDEX(playlistid),
+	INDEX(trackid),
+	INDEX(position)
+);
+
+CREATE TABLE PlaylistRestriction
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	playlistid INT NOT NULL,
+	restriction VARCHAR(255) NOT NULL,
+	PRIMARY KEY (id),
+	INDEX (playlistid)
+);
+
+CREATE TABLE Pipeline
+(
+	id INT NOT NULL AUTO_INCREMENT,
+	name VARCHAR(255) NOT NULL,
+	PRIMARY KEY (id),
+	INDEX (name)
+);
+
+CREATE TABLE PipelineBlackboard
+(
+	pipelineid INT NOT NULL,
+	position INT NOT NULL,
+	datakey VARCHAR(255) NOT NULL,
+	datavalue BLOB,
+	classname VARCHAR(255) NOT NULL,
+	PRIMARY KEY (pipelineid,position,datakey),
+	INDEX( pipelineid )
+);

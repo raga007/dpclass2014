@@ -1,0 +1,21 @@
+<project>
+
+  <target name="compile">
+    <javac classpath="anthome/junit.jar" srcdir="." destdir="classes"/>
+    <!-- <javac srcdir="." destdir="classes"/> -->
+  </target>
+
+<path id="test.classpath">
+  <pathelement location="anthome/junit.jar" />
+  <pathelement location="classes/" />
+</path>
+
+  <target name="test" depends="compile">
+    <junit> 
+      <test name="BuySellTest"/> 
+      <formatter type="brief" usefile="false" />
+      <classpath refid="test.classpath" />
+    </junit>
+  </target>
+
+</project>

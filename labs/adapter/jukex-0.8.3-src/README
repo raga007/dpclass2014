@@ -1,0 +1,491 @@
+
+
+               JukeX - THE Multi User Jukebox Application
+
+
+===============================================================================
+1 CONTENTS
+===============================================================================
+
+	1. Contents
+	
+	2. Introduction
+		2.1 Why does the world need another Jukebox?
+		2.2.Features
+	
+	3. Installation
+		2.1 Prerequisites
+		2.2 Installation
+		2.3 Building from source
+		
+	4. User Manual
+		3.1 Initial configuration
+		3.2 Playing music
+		3.2 Pipeline configuration
+		
+	5. Developer Information
+		5.1 Internationalisation / localisation
+		5.2 Known issues
+		5.3 Planned enhancements
+
+	6. Contributors
+		6.1 Software developers
+		6.2 French language resources
+		6.3 Free Software Foundation
+
+	7. Open Source Certification
+
+===============================================================================
+2 INTRODUCTION
+===============================================================================
+
+3.1 Why does the world need another jukebox application?
+
+	We listen to a lot of music in our office, it enhances the informal
+atmosphere in which we like to work, increases productivity and makes us happy.
+Initially we built a jukebox using shell scripts, old washing up liquid bottles
+and double sided sticky tape.  As our music collection grew this solution began
+to fray at the edges, and we decided to try some of the open-source jukeboxes
+that had already been written.  Why reinvent the wheel?  We tried many
+different jukebox applications over the next few months, but none of them were
+as powerful, flexible and maintainable as we would have liked.
+
+	We wanted to create a jukebox application that would allow us to rate
+tracks.  We wanted a jukebox which would enable us to instantly filter out any
+noisy/profane tunes.  We wanted a jukebox that would prevent individual users
+from 'hogging' the playlist by playing albums and albums of their own music.
+We wanted a jukebox that could be deployed without building a custom operating
+system kernel and patched versions of Apache & PHP.  We wanted a jukebox that
+was designed to be maintained and extended.  Most of all we wanted a jukebox
+which didn't use it's "random selection" feature to play 'Freaking Out' by
+Adema at least 10 times every day.
+
+	We could not find one, so we wrote one.
+
+
+3.2 Features
+
+	JukeX has been designed from the ground up to be as flexible and
+	extensible as possible.  It offers the following features.
+	
+	(0) Complete database abstraction.  Developers need never access
+	    the database directly.
+	
+	(0) Full query language - JukeXQL is an SQL like query language
+	    designed specifically for searching for tracks within the
+	    JukeX system.
+	
+	(0) Customisable attribute system - Tracks can have arbitrary values
+	    assigned to them as required by the developer.
+	
+	(0) Flexible pipeline based music preparation - JukeX has a pluggable
+	    and easily extensible 'pipeline' of components that enables JukeX
+	    play the music that *you* want to listen to. (Without having to
+	    explicitly tell it, of course.)
+	
+	(0) Round robin based user playlists - All user requests are interleaved
+	    so no-one can 'hog' the jukebox.
+	
+	(0) Audio banners - Inspirational company songs or messages may be
+	    automatically inserted into the playlist at predefined intervals.
+	
+	(0) Search based selection - Randomly play the results of 'SELECT Track
+	    WHERE Artist="Celine Dion"' to gain grace and favour with your
+	    workmates.
+
+	(0) Powerful filters - These allow you to filter out any music that you
+	    may not want the jukebox to play, and may be enabled and disabled
+	    as required.
+	
+	(0) Automatic correction of ID3 tag information - Erroneous information
+	    on the MP3s, such as incorrect bitrates, are automatically
+	    corrected as they are played.
+
+	This is just the functionality included in the current release.  Look
+	for more exciting features as they are released!
+
+===============================================================================
+3 INSTALLATION
+===============================================================================
+
+3.1 Prerequisites
+
+	JukeX is built upon a number of other open-source technologies.  In
+	order to run JukeX your system will need the following installed:
+	
+	(0) JDK 1.4 or higher (http://java.sun.com)
+	(0) MySQL 3.2 (http://www.mysql.org)
+	(0) MySQL JDBC Drivers (http://mmmysql.sourceforge.net)
+	(0) ShoutCast/IceCast server (http://www.shoutcast.com)/
+	    (http://www.icecast.org)
+	(0) Shoutcast/IceCast compatible MP3 player, such as xaudio or Winamp
+	(0) Apache Tomcat webserver version 3.3.x or 4.0.x
+	    (http://jakarta.apache.org/tomcat)
+	(0) Apache Ant build system (http://jakarta.apache.org/ant)
+	
+	Java Libraries Required (Advanced configuration only)
+	
+	(0) Apache Log4J logging system (http://jakarta.apache.org/log4j)
+	(0) Xerces (http://xml.apache.org)
+	(0) Xalan (http://xml.apache.org)
+	
+	(X) The four preceding libraries may be downloaded in a single archive
+	    from http://www.jukex.org/files/lib.zip
+	
+	(0) Java Rowset functions
+	    (http://developer.java.sun.com/developer/earlyAccess/crs).  You will
+	    need a Java Developer Connection account to download this.
+	
+	Please refer to the documentation supplied with these products for
+	details on installing them.
+	
+3.2 Installation
+
+	JukeX consists of a number of services:
+	
+	(0) Database server - This manages all of the JukeX information and the
+	    track data.
+		
+	(0) Webserver - The service that provides the web interface.
+	
+	(0) Shoutcast/Icecast - The service which accepts the ShoutCast stream
+	    from JukeX and broadcasts it to compatible players.
+		
+	(0) Filestore - The filestore with all your MP3s on, which should be
+	    accessible from your webserver (by file or http URL).
+	
+	These services will happily co-exist on the same server, or may be
+	deployed on different servers if, for instance, you already have a
+	separate MySQL database server.
+	
+	The instructions for installation are divided into 2 sections, beginner
+	and advanced.  If you are a Java developer and already know what a
+	classpath is, and how to use it, then skip to section 2.4: Advanced
+	configuration.  If you're new to Java, or don't have much experience,
+	don't worry, we have thought of you too, and your setup instructions are
+	in section 2.3.
+	
+	
+3.3 Simple configuration
+
+	3.3.1 Java Configuration
+			
+	Here we'll assume that you've downloaded all the prerequisites from
+	section 2.1.  If you haven't you've got a bit to do first, we'll see
+	you in ten minutes.
+				
+	Once you've got the JDK downloaded install it according to the
+	instructions for your platform.  Once you've done this you'll need to
+	add the /bin directory of the installation to your PATH.  This can be
+	done *temporarily* like this, using your own installation paths.
+				
+		Windows: SET PATH=c:\j2sdk1.4.0\bin;%PATH%
+		Unix: PATH=/usr/java/j2sdk1.4.0/bin:$PATH
+				
+	This will allow you to run the Java tools from anywhere on your hard
+	disk, and will be essential later on.  You can test this by typing
+	'java' at the command line.  You should receive the help for the Java
+	virtual machine.  If you receive an error here you haven't successfully
+	configured the PATH variable on your system.
+		
+	3.3.2 Tomcat Installation
+	
+	Tomcat runs pretty much out of the box.  Install it as directed
+	(basically, unzip/untar it into a directory somewhere on your machine),
+	and then add an environment variable to your system called TOMCAT_HOME,
+	containing the path to the root of your installation, e.g.
+
+		Windows: set TOMCAT_HOME=c:\java\lib\tomcat-3.2.4
+		Unix: TOMCAT_HOME=/usr/local/tomcat-3.2.4
+
+		[Optional]
+
+			The default port for Tomcat is 8080, so the url for the
+			jukebox would be:
+					http://machinename:8080
+					(http://localhost:8080 should work)
+
+			If you want to run this on the default web service port
+			of 80, so you don't have to put the port number at the
+			end then edit the file server.xml, which should be in
+			the conf/ directory in your Tomcat installation
+			directory.
+
+			Find the following section in the file, and change the
+			port parameter from 8080 to whichever port you would
+			like JukeX to run on.
+
+<Connector className="org.apache.tomcat.service.PoolTcpConnector">
+	<Parameter name="handler" 
+		value="org.apache.tomcat.service.http.HttpConnectionHandler"/>
+	<Parameter name="port" 
+		value="8080"/>
+</Connector>
+
+		[/Optional]
+	
+	3.3.3 MySQL Installation
+	
+	If you are installing MySQL solely for the purpose of running JukeX,
+	then it should be fairly simple.  If you've already got a MySQL server
+	for other reasons then you will already know how to use it, and it will
+	be even easier for you; we'll barely interrupt you whilst you are
+	reading Slashdot.
+		
+	Create a MySQL database, and call it whatever makes sense, for instance
+	we called ours "JukeX".  If you are feeling security conscious you can
+	create a user and give them permissions on the database. If you do not
+	do this then you will need to grant the default user ("") all
+	permissions on the JukeX database.
+		
+	In order to create the database tables required for JukeX there is a
+	script provided in the /src/sql directory called mysql_jukebox.txt.
+	Either:
+		
+		Load up the mysql manager (not the windows GUI version) and
+		change databases to your newly created database, then use your
+		favourite text editor to copy and paste these instructions into
+		the mysql manager.
+		
+		OR 
+		
+		Edit the mysql_jukebox.txt file, adding the line 'use JukeX;'
+		(where JukeX is the name of the database you have just created)
+		to the top of the file (just below the license statement) and
+		cat the file into mysql:
+		
+		Windows: mysql -D JukeX < mysql_jukebox.txt
+		Unix: cat mysql_jukebox.txt | mysql -h jukex.neoworks.co.uk -U JukeX -pJukeX
+
+	NOTE: Depending on the version of MySQL you are using you may need to
+	modify the mysql_jukebox.txt file. Most commonly this will involve
+	removing the comment block from the top of the file and possibly
+	removing the DROP statements from the beginning of the SQL.
+
+	This will create all of the necessary tables.
+		
+	3.3.4 Ant Installation
+		
+	At the moment it is necessary to build yourself a distribution of JukeX.
+	We hope to address this in future releases so that JukeX is easier to
+	set up.
+
+	Install ant by unzipping it somewhere in your directory structure, and
+	adding the bin directory to your path, as you did with the Java SDK.
+		
+	3.3.5 JukeX Installation
+	
+	To install JukeX itself create a directory for it, and unzip/untar
+	the distribution into this directory. The directory structure beneath
+	this will be created automatically.
+		
+		
+	Download the prerequisite libraries from
+	http://www.jukex.org/files/lib.zip, and install by unzipping the file
+	into your jukex root directory.  This will create a /lib directory
+	which contains all the necessary jars except one, rowset.jar, which we
+	are prohibited from distributing due to Sun licensing.  This is
+	available from:
+		
+		http://developer.java.sun.com/developer/earlyAccess/crs/
+		
+		and will require you to sign up to download.  We hope to remove
+		this dependency in a future release.
+		
+		Once you have installed the libraries run the batch file: 
+		
+			setclasspath.bat
+		
+		which will include all of the libraries in your system classpath
+		environment variable.  Then build the JukeX system by typing:
+		
+			ant war
+		
+		Once this has completed there will be a file in the dist/
+		directory called jukex.war.  Copy this file to the webapps/
+		directory under your Tomcat installation, and rename it to
+		"ROOT.war". You may also deploy this using the manager
+		application if you are using tomcat 4.
+	
+
+3.4 Developer Configuration
+
+	This section is for the kind of hardman/hardwoman who always compiles
+	from source, and never reads the manual anyway.
+	
+	3.4.1 Prerequisites and more
+	
+	We will assume that if you have skipped to the advanced configuration
+	you already know what you are doing.  This means that you've either
+	already got copies of the JDK 1.4, Tomcat, Ant and MySQL installed, or
+	you are able to work out how to do this yourself.
+		
+	3.4.2 Setup MySQL
+		
+	We have provided a database setup script in src/sql/mysql_jukebox.txt
+	that creates all the tables you need in order to run JukeX.  Copy and
+	paste this script into a MySQL prompt / pipe into mysql.
+		
+	NOTE: The scripts do not create the database itself.  That is up to you,
+	follow the instructions under MySQL to create a database with whatever
+	name you see fit.
+		
+	3.4.3 Unzip the source
+	
+	Unzip the source code to JukeX somewhere on your hard disk.  It is here
+	that we will build a release customised to your setup.
+		
+	3.4.4 Compiling the source
+	
+	There are quite a few library dependencies in JukeX, so it is probably
+	best to download our rollup of all the libraries from the homepage
+	(http://www.jukex.org).  All of the dependency jars need to go in the
+	JukeX source directory under lib/ or be in your system classpath, as
+	that is where the build target expects to find them.
+		
+	Once you have either symlinked, copied in, or downloaded and unzipped
+	the dependency jars to the lib directory you should be able to easily
+	build a copy of JukeX using the command line:
+		
+		ant war
+		
+	3.4.5 Deploying the WAR
+	
+	Once you have compiled the source there should be a file called
+	JukeX.war in the /dist directory.  This is the compiled, customised
+	application containing all your settings.  To use this copy it into the
+	Tomcat webapps directory and start Tomcat.  This will automatically
+	unpack and deploy the WAR file, and provided you are using Tomcat and
+	have not altered the settings you will find the jukebox at:
+		
+		http://yourservername:8080/JukeX
+		
+	If you have altered the settings you will probably have a good idea
+	what url and port tomcat is running on anyway.
+	
+	
+===============================================================================
+4 USER MANUAL
+===============================================================================
+
+4.1 Importing your music
+
+	Before you start using JukeX you'll need to import your music
+	collection(s) into the system.  This is so JukeX can read all of the
+	ID3 tags on your MP3 files and make it fast and easy for you to
+	search through them.
+	
+	This is done using the MP3Importer program.  This trawls through your
+	music directory finding new tracks to add to the database. The
+	MP3Importer is invoked using the following command line:
+
+	java MP3Importer -d <directory>
+
+	There are a number of options available:
+
+	-m Match expression
+	-r Replace expression
+
+	These two options must be used together and perform a regular
+	expression substitution on the URLs of the tracks being imported.
+	This enables tracks to be imported from a server to which the JukeX
+	server does not have local filesystem access, or has access from a
+	different mount point.
+
+	e.g.
+	java MP3Importer -m "file://G:" -r "http://music" -d G:\
+	java MP3Importer -m "file://mnt/nfs/foo" -r "file://mnt/foo" -d /mnt/nfs/foo
+
+	-n Do not actually import/update tracks
+
+	-f Force update all tracks
+	
+	Tracks are checked by modification time to detect changes. Sometimes
+	this isn't good enough, so this option forces an update.
+	
+	-s Specify a properties file containing substitutions to apply to
+	   imported attributes.
+
+	Example file contents:
+	
+		Artist=/^[Tt]he (.*)$/$1, The/
+
+	This example rewrites all artist names that begin with "the".
+	
+4.2 Playing music
+
+	Once the application is running the music can be started using the
+	"play" action link on the left hand side of the HTML interface.
+
+	Once music is streaming to the [Ice|Shout]cast server clients may
+	connect to it and begin to listen.
+
+4.3 Pipeline configuration
+
+	The pipeline is one of the most important aspects of the system. The
+	HTML interface provides an editor that enables elements to be added,
+	removed and configured. Most elements are self explanatory.
+
+===============================================================================
+5 DEVELOPER INFORMATION
+===============================================================================
+
+5.1 Internationalisation / localisation
+	JukeX uses ResourceBundles for locale specific language customisation.
+	The default ResourceBundle is en_GB and fr is provided as an
+	alternative.
+	Developers wishing to translate the application only need to create a
+	properties file in the src/etc directory of the JukeX distribution and
+	rebuild the application to add support for further languages.
+	Currently there is only one bundle: InterfaceResources.
+
+5.2 Known issues
+	5.3.1 JukeX Core
+		- JukeXQL queries for attribute values that are not present on
+		  all search results will return incomplete result sets.
+		- There is an issue with discovering the duration of tracks.
+	5.3.2 JukeX User Interface
+		- Some pipeline elements are not fully configurable
+	5.3.3 JukeX Importer
+		- The importer does not have an option to recurse directories.
+
+5.2 Planned enhancements
+	- The AudioBannerPipelineElement should use a second pipeline to
+	  provide a source of tracks for insertion.
+	- All pipeline elements should be full configurable.
+	- Ogg Vorbis support
+	- Add user login and management
+	- Persist session information for registered users
+	- Separate user/administrator functions
+
+===============================================================================
+6 CONTRIBUTORS
+===============================================================================
+
+6.1 Software developers
+
+	NeoWorks (http://www.neoworks.com) are an independent software house
+	based in London, England.  We specialise in developing bespoke software
+	solutions for customers from individuals to large businesses, as well as
+	providing support and consultancy services.
+
+6.2 French language resources
+
+	Gregory "XXXL" Kris is an anglo-french entrepreneur who will work for
+	beer.
+
+6.3 Free Software Foundation
+
+	The Free Software Foundation (http://www.fsf.org) created the General
+	Public License under which this product id released.
+
+===============================================================================
+7 OPEN SOURCE CERTIFICATION
+===============================================================================
+
+This software is OSI Certified Open Source Software.
+OSI Certified is a certification mark of the Open Source Initiative.
+
+===============================================================================
+EOF
+===============================================================================

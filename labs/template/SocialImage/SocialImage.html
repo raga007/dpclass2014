@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+  <head>
+    <title>Social Image Example</title>
+  </head>
+  <body onload=createDivForEachImage()>
+    <script type="text/javascript">
+      var maxWidth = 1024;
+      var maxHeight = 768;
+      var divs=new Array();
+      var basicDrawer = new BasicDrawer();
+      var advancedDrawer = new AdvancedDrawer();
+      var personalDrawer = new PersonalDrawer();
+      var drawer = basicDrawer;
+      
+      function sortImgByID(a, b) {
+        if (a.id < b.id) {
+          return -1; 
+        } 
+        if (a.id > b.id) {
+          return 1; 
+        }
+        return 0;
+      }
+      function sortImgBySize(a, b) {
+        var imgs = a.getElementsByTagName("img");
+        var heightA = imgs[0].height;
+        var widthA = imgs[0].width;
+
+        imgs = b.getElementsByTagName("img");
+        var heightB = imgs[0].height;
+        var widthB = imgs[0].width;
+
+        return heightB * widthB - heightA * widthA;
+      }
+
+      function increaseCount(id, event) {
+        element = document.getElementById(id);
+        redraw(id, event.which);
+      }
+
+
+      function BasicDrawer() {};
+      BasicDrawer.prototype.resizeImages = function(id, which) {
+
+        for (var i = 0; i < divs.length; i++) {
+          var imgs = divs[i].getElementsByTagName("img");
+          var height = imgs[0].height;
+          var width = imgs[0].width;
+
+          if (divs[i].id == id) {
+            if (which == 1) {
+              imgs[0].setAttribute("width", width * 1.1);
+              imgs[0].setAttribute("height", height * 1.1);
+            } else {
+              imgs[0].setAttribute("width", width * 0.9);
+              imgs[0].setAttribute("height", height * 0.9);
+            }
+          }
+        }
+      }
+
+      BasicDrawer.prototype.placeImages = function() {
+        divs.sort(sortImgByID);
+
+        var isTooBigImgs = true;
+        while(isTooBigImgs) {
+          var topPos = 100;
+          var leftPos = 0;
+          isTooBigImgs = false;
+          var rowHeight = 0;
+          for (var i = 0; i < divs.length; i++) {
+            var imgs = divs[i].getElementsByTagName("img");
+            var height = imgs[0].height;
+            var width = imgs[0].width;
+            if (width > maxWidth) {
+              isTooBigImgs = true;
+              break;
+            }
+            if (leftPos + width > maxWidth) {
+              topPos += rowHeight;
+              leftPos = 0;
+              rowHeight = 0;
+            } 
+            if ((topPos + height - 100) > maxHeight) {
+              isTooBigImgs = true;
+              break;
+            }
+            divs[i].style.top = Math.round(topPos) + "px";
+            divs[i].style.left = Math.round(leftPos) + "px";
+            leftPos += width;
+            if (height > rowHeight) {
+              rowHeight = height; 
+            }
+          }
+
+          if (isTooBigImgs) {
+            for (var i = 0; i < divs.length; i++) {
+              var imgs = divs[i].getElementsByTagName("img");
+              var height = imgs[0].height;
+              var width = imgs[0].width;
+              imgs[0].setAttribute("width", width * 0.95);
+              imgs[0].setAttribute("height", height * 0.95);
+            }
+          }
+        }
+      }
+
+      function AdvancedDrawer() {
+      }
+      AdvancedDrawer.prototype.resizeImages = function(id, which) {}
+
+
+      AdvancedDrawer.prototype.placeImages = function() {}
+
+
+      function PersonalDrawer() {}
+      PersonalDrawer.prototype.resizeImages = function(id, which) {
+      }
+      PersonalDrawer.prototype.placeImages = function() {
+      }
+
+      function redraw(id, which) {
+        drawer.resizeImages(id, which);
+        drawer.placeImages();
+      }
+
+      function changeState(id) {
+        if (id == "basicBtn") {
+          drawer = basicDrawer;
+        } else if (id == "advancedBtn") {
+          drawer = advancedDrawer;
+        } else if (id == "personalBtn") {
+          drawer = personalDrawer;
+        }
+        drawer.placeImages();
+      }
+
+      function createDivForEachImage() {
+        var imgName=["EPI", "AFI", "ACP", "CC", "CP", "DP", "EJ", "HFDP", "IA"]; 
+        var imgWidth=[268, 266, 284, 302, 297, 321, 318, 346, 356];
+
+        var topPos = 100;
+        var leftPos = 0;
+
+        for (var i = 0; i < imgName.length; i++) {
+          var div =  document.createElement("div");
+          div.id=imgName[i];
+          div.onmousedown= function() { increaseCount(this.id, arguments[0] || event); };
+          div.innerHTML="<img src=\"img/" + imgName[i] + ".png\">";
+          div.style.position ="absolute";
+
+          if ((leftPos + imgWidth[i]) > maxWidth) {
+            topPos += 400;
+            leftPos = 0;
+          }
+
+          div.style.left = leftPos + "px";
+          div.style.top = topPos + "px";
+          leftPos += imgWidth[i];
+
+          var imgs = div.getElementsByTagName("img");
+          imgs[0].setAttribute("width", imgWidth[i]);
+          imgs[0].setAttribute("height", 400);
+
+          divs[i] = div; 
+          document.body.appendChild(div);
+        }
+        drawer.placeImages();
+      }
+
+    </script>
+    <div id="basicBtn" style="position: absolute; left: 0px; top: 0px" onmousedown="changeState(this.id)">
+      <img src="btn/basic.png"/>
+    </div>
+    <div id="advancedBtn" style="position: absolute; left: 100px; top: 0px" onmousedown="changeState(this.id)">
+      <img src="btn/advanced.png"/>
+    </div>
+    <div id="personalBtn" style="position: absolute; left: 200px; top: 0px" onmousedown="changeState(this.id)">
+      <img src="btn/personal.png"/>
+    </div>
+  </body>
+</html>

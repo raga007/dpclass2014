@@ -1,0 +1,154 @@
+\documentclass[12pt]{article}
+\usepackage{comment}
+\addtolength{\textheight}{0.5in}
+\usepackage{hyperref}
+\hypersetup{
+    bookmarks=true,         % show bookmarks bar?
+    unicode=false,          % non-Latin characters in Acrobat’s bookmarks
+    pdftoolbar=true,        % show Acrobat’s toolbar?
+    pdfmenubar=true,        % show Acrobat’s menu?
+    pdffitwindow=false,     % window fit to page when opened
+    pdfstartview={FitH},    % fits the width of the page to the window
+    pdftitle={My title},    % title
+    pdfauthor={Author},     % author
+    pdfsubject={Subject},   % subject of the document
+    pdfcreator={Creator},   % creator of the document
+    pdfproducer={Producer}, % producer of the document
+    pdfkeywords={keyword1} {key2} {key3}, % list of keywords
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links (change box color with linkbordercolor)
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=cyan           % color of external links
+}
+
+
+\begin{document}
+
+\noindent
+%TODO: name seems a little weak?
+% maybe EE382V: Design Patterns
+{\large \bf EE382V: Design Patterns}
+\pagestyle{empty}
+
+%\paragraph*{Title:} Advanced Programming Practices
+
+\paragraph*{Description:}%Someone has already solved your problems. 
+You will learn how to exploit the wisdom and lessons learned by other developers. 
+Specifically, SSP will begin with a review of OO principles, which will then be followed
+by an in-depth study of important design patterns. SSP will conclude with a survey of refactoring.
+%related to style, algorithms \& data structures, design, interfaces, debugging,
+%testing, performance, portability and notation; and
+%concerned with design patterns and refactoring. 
+Lectures will be interspersed with guest speakers from companies 
+at the leading edge of software practice. 
+
+\paragraph*{Required Texts:} %{\em The Practice of Programming} (POP) and 
+Freeman \& Freeman's \href{http://www.amazon.com/First-Design-Patterns-Elisabeth-Freeman/dp/0596007124}{\em Head First Design Patterns} (HFDP) and Fowler's \href{http://www.amazon.com/Refactoring-Improving-Design-Existing-Code/dp/0201485672/}{\em Refactoring}, 
+with supplementary material from Gamma~{\em et al.}'s~\href{http://www.amazon.com/Design-Patterns-Elements-Reusable-Object-Oriented/dp/0201633612/}{\em Design Patterns: Elements of Reusable Object-Oriented Software}.
+%These are outstanding award winning books.
+%and are issued to all new developers at 
+%leading software companies such as Google.
+
+% \paragraph*{Instructor:} Adnan Aziz, {\tt adnan.aziz@gmail.com}
+
+\newcommand{\skipfourdays}{\skipday \skipday \skipday \skipday}
+\newcommand{\skipfivedays}{\skipday \skipday \skipday \skipday \skipday}
+\newcommand{\skipsevendays}{\skipday \skipday \skipday \skipday \skipday \skipday \skipday}
+
+\paragraph*{Topics, in order of presentation:}
+Overview, UML, OO basics, OO design, HFDP~1.~Introduction, HFDP~2.~Observer,
+HFDP~3.~Decorator, HFDP 4.~Factories, HFDP~5.~Singleton, HFDP~6.~State,
+HFDP~7.~Adaptor, HFDP~8.~Template, HFDP~9.~Collections, HFDP~10.~State,
+HFDP~11.~Proxy, HFDP~12.~Patterns of Patterns, HFDP~13.~Real-world issues,
+Refactoring Case Study, Refactoring Principles, Bad Smells, Common Refactorings, Pragmatics
+
+\noindent
+\begin{tabular}{|l|p{0.66\textwidth}|} \hline
+%Date & Topic \\ \hline
+%\multicolumn{2}{|c|}{\bf Head First Design Patterns} \\ \hline
+6/14/13 & {Overview, UML, OO basics, \newline HFDP 1.~Introduction, HFDP 2.~Observer} \\
+6/15/13 & {HFDP 3.~Decorator, HFDP 4.~Factories, \newline HFDP 5.~Singleton, HFDP 6.~State} \\
+6/16/13 & {\em Lab 0 due} \\
+6/23/13 & {\em Lab 1 due} \\
+6/28/13 & {HFDP 7.~Adaptor, HFDP 8.~Template, \newline HFDP 9.~Collections, HFDP 10.~State} \\
+6/29/13 & {HFDP 11.~Proxy, HFDP 12.~Patterns of Patterns, \newline HFDP 13.~Real-world issues} \\
+6/30/13 & {\em Lab 2 due} \\
+7/07/13 & {\em Lab 3 due} \\ \hline
+%\multicolumn{2}{|c|}{\bf The Practice of Programming} 
+7/12/13 & {Refactoring Case Study} \\
+7/13/13 &  {Refactoring Principles} \\
+7/14/13 & {\em Lab 4 due} \\
+7/19/13 & {Bad Smells} \\
+7/20/13 & {Common Refactorings} \\
+7/21/13 & {\em HW 1 \& 2 due} \\
+7/27/13 & {Pragmatics} \\
+7/28/13 & {\em HW 3 \& 4 due} \\
+8/04/13 & {\em HW 5 due} \\ \hline
+\hline
+\end{tabular}
+
+% \begin{calendar}{6/14/13}{8}
+% \setlength{\calboxdepth}{.6in}
+% \skipday
+% \skipday
+% \skipday
+% \skipday
+% %\calday[Monday]{\noclassday}
+% %\calday[Tuesday]{\noclassday}
+% %\calday[Wednesday]{\noclassday}
+% %\calday[Thursday]{\noclassday}
+% \calday[Friday]{\classday} 
+% \calday[Saturday]{\classday} 
+% \calday[Sunday]{\classday} 
+% \caltext{6/14/13}{{\bf HFDP} 1.~Introduction, 2.~Observer, 3.~Decorator, 4.~Factories, Lab 0, Lab 1}
+% \caltext{6/15/13}{5.~Singleton, 6.~State, 7.~Adaptor, Lab 2}
+% \caltext{6/16/13}{Lab 0 due}
+% \caltext{6/23/13}{Lab 1 due}
+% \caltext{6/28/13}{8.~Template, 9.~Collections, 10.~State, Lab 3}
+% \caltext{6/29/13}{11.~Proxy, 12.~Patterns of Patterns, 13.~Real-world issues, Lab 4}
+% \caltext{6/30/13}{Lab 2 due}
+% \caltext{7/7/13}{Lab 3 due}
+% \caltext{7/12/13}{{\bf EJ} 2.~Creating and Destroying Objects, 3.~Methods Common to All Objects}
+% \caltext{7/13/13}{4.~Classes and Interfaces, 5.~Generics}
+% \caltext{7/14/13}{Lab 4 due}
+% \caltext{7/19/13}{Enums and Annotations, 7.~Methods}
+% \caltext{7/20/13}{General Programming, 9.~Exceptions}
+% \caltext{7/21/13}{HW 1 \& 2 due}
+% \caltext{7/26/13}{10.~Concurrency, 11.~Serialization}
+% \caltext{7/28/13}{HW 3 \& 4 due}
+% \caltext{8/4/13}{HW 5 due}
+% %%\skipsevendays
+% %% \calday[Saturday]{\classday} 
+% % \skipsevendays
+% % \skipfivedays
+% % \calday[Friday]{\classday} 
+% % \caltexton{5}{{\bf EJ} 2.~Creating and Destroying Objects, 3.~Methods Common to All Objects}
+% % \calday[Saturday]{\classday} 
+% % \caltexton{6}{4.~Classes and Interfaces, 5.~Generics}
+% % \skipfivedays
+% % \calday[Friday]{\classday} 
+% % \caltexton{7}{6.~Enums and Annotations, 7.~Methods}
+% % \calday[Saturday]{\classday} 
+% % \caltexton{8}{8.~General Programming, 9.~Exceptions}
+% % \skipfivedays
+% % \calday[Friday]{\classday} 
+% % \caltexton{8}{10.~Concurrency, 11.~Serialization}
+% \end{calendar}
+
+\paragraph{Workload, grading:}Grades will be assigned based
+on performance on $5$ written homeworks (15\%), $5$ lab exercises (30\%), a term project (30\%),
+$4$ in-class tests (20\%), and class participation (5\%).  We will use the +/- scheme.
+
+%\paragraph{Grading:} Grades will be determined 
+%by performance on labs and homework. We will use
+%the +/- scheme.
+
+%\paragraph{Related classes:} TODO
+
+
+
+
+
+\end{document}

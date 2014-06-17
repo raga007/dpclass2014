@@ -1,0 +1,63 @@
+                      JukeX - Frequently Asked Questions
+
+Q. I have a question for the FAQ. How can I submit it?
+A. Please send it to the user/developer mailing list provided at sourceforge.net
+   which you will find on the JukeX project summary page:
+
+   http://sourceforge.net/projects/jukex
+
+Q. I do not seem to be able to get JukeX to connect to MySQL. Why is this?
+A. MySQL configuration is fairly complex for the beginner and can, at times, be
+   challenging even for experienced users. A few hints:
+   * Create a user for the Jukex System using the GRANT statement. Documentation
+     for the GRANT sytax may be found at http://www.mysql.com. In the most
+     simple case (i.e. you want to get it to work and you are not too worried
+     about security) something like:
+     
+     GRANT ALL PERMISSIONS ON JukeX.* TO JukeXUser [IDENTIFIED BY jxpassword]
+     
+     should work fine. This assumes a database names JukeX and that you wish to
+     create a user called JukeXUser [with password set to "jxpassword".
+   * Check the JDBC database URL. This is set up during the build process and
+     should look like:
+
+     jdbc:mysql://mysqlservername.mydomain.com/DatabaseName
+
+Q. What is the "Icecast/Shoutcast server source connection port"?
+A. This is the port that the Icecast/Shoutcast server listens for source
+   connections on. JukeX connects on this port to stream music files. The
+   port number is one higher than the PortBase set in the Icecast/Shoutcast
+   server configuration and defaults to 8001.
+
+Q. What is the "Icecast/Shoutcast server listener connection port"?
+A. This is the port that applications connect to the Icecast/Shoutcast server
+   on to "listen" to the broadcast. It is also the port on which sources
+   such as JukeX must connect to send track information. The port number is
+   the PortBase set in the Icecast/Shoutcast server configuration and defaults
+   to 8000.
+
+Q. What should I set the "Maximum database connections supported" value to?
+A. This sets a hard limit on the number of actual database connections that
+   JukeX makes to the database. This will be far lower than the number of
+   simultaneous clients that can be supported as JukeX makes use of connection
+   pooling. You should not need to change this value from the default of 20, but
+   if your JukeX installation is reporting errors under heavy load you may wish
+   to increase it.
+
+Q. Tomcat startup is failing with the following message:
+   "System property not specified: com.neoworks.connectionpool.properties
+   Unable to find any configuration data for database PoolManager.  Exiting."
+   Why is this?
+A. The application is trying to load a resource from within its own WAR file.
+   Tomcat versions prior to 3.3 require an extra line to be added to the
+   server.xml file (in the $TOMCAT_HOME/conf directory) to allow this behaviour:
+   
+   <RequestInterceptor className="org.apache.tomcat.request.Jdk12Interceptor" />
+   
+   It is the default behaviour for version 3.3 and upwards.
+
+Q. I think that I have found a bug in jukeX. How can I report it?
+A. Please use the bug tracking system on sourceforge.net, you will find this on
+   the JukeX project summary page:
+
+   http://sourceforge.net/projects/jukex

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!--
+/***************************************************************************
+    Copyright          : (C) 2002 by Neoworks Limited. All rights reserved
+    URL                : http://www.neoworks.com
+ ***************************************************************************/
+/***************************************************************************
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ ***************************************************************************/
+-->
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>jukexTags</shortname>
+	<info>NeoWorks JukeX Tag Library</info>
+
+	<!-- START The magic table tag -->
+	<tag>
+		<name>box</name>
+		<tagclass>com.neoworks.jukex.client.html.standard.taglib.ShadowBox</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<info>
+			This tag draws the familiar JukeX table
+		</info>
+
+		<attribute>
+			<name>title</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>bevel</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+
+		<attribute>
+		 	<name>width</name>
+			<required>false</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>padding</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<!-- END The magic table tag -->
+
+	<!-- START The magic pipelineelement tag -->
+	<tag>
+		<name>pipe</name>
+		<tagclass>com.neoworks.jukex.client.html.standard.taglib.PipeElement</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<info>
+			This tag draws a pipeline element with the specified dimensions
+		</info>
+
+		<attribute>
+			<name>title</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>enabled</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>height</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>width</name>
+			<required>true</required>	<!-- Because IE6 can't render HTML properly -->
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>color</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+		<attribute>
+			<name>showarrow</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+
+	</tag>
+	<!-- END The magic pipelineelement tag -->
+
+</taglib>

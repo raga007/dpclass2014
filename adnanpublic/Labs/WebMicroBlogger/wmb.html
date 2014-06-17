@@ -1,0 +1,156 @@
+<head>
+    <title>UTweeter</title>
+    <link rel="stylesheet type=" text/css" href="wmb.css">
+
+<!-- 
+use following enum for message type: CREATE, UPDATE, LIKE, UPVOTE, DELETE, QUERY, QUERYBYID, TRENDING 
+-->
+
+<script src="js/jquery.min.js"></script>
+<script src="js/wmb.js"></script>
+
+
+</head>
+
+<body>
+<h2>Welcome to UTweeter!</h2>
+
+<div id="formwrapperdiv">
+<table>
+<tr>
+<td valign="top">
+<div id="creatediv">
+<h3>Create a posting</h3>
+<form name="createform">
+<table>
+<tr><td>Name</td><td> <input type="text" name="name" value="Default
+    name"></td></tr>
+<tr><td>Subject</td><td> <input type="text" name="subject" value="Default
+    value"></td></tr>
+<tr><td>Body</td><td> <input type="text" name="body" value="Default
+    body"></td></tr>
+<tr><td>Latitude</td><td> <input type="text" name="latitude
+  " value="0.00"></td></tr>
+<tr><td>Longitude</td><td> <input type="text" name="longitude
+  " value="0.00"></td></tr>
+<tr><td>Date</td><td> <input type="text" name="date" value="13:54:11
+    11/7/2012"></td></tr>
+</table>
+</form> 
+</div>
+</td>
+
+<td valign="top">
+<div id="querydiv">
+<h3>Query/Trending/Update</h3>
+<form name="queryform">
+<table>
+<tr> <td>Name</td> <td>  <input type="text" name="name" value="Default
+    name"></tr>
+<tr><td>Subject</td> <td>  <input type="text" name="subject" value="Default value"></tr>
+<tr><td>Body</td> <td>  <input type="text" name="body" value="Default
+    body"></tr>
+<tr><td>Latitude</td> <td>  <input type="text" name="latitude" value="0.00"></tr>
+<tr><td>Longitude</td> <td>  <input type="text" name="longitude" value="0.00"></tr>
+<tr><td>Distance</td> <td>  <input type="text" name="distance" value="0.00"></tr>
+<tr><td>Page size </td> <td> <input type="text" name="pageSize" value="5"></tr>
+<tr><td>Page offset</td> <td> <input type="text" name="pageOffset" value="0"></tr>
+<tr><td>Start time</td> <td> <input type="text" name="dateStart" value="0"></tr>
+<tr><td>End time</td> <td> <input type="text" name="dateEnd" value="0"></tr>
+<tr><td> Id of posting </td><td><input type="text" name="postingId" value="0"></td></tr>
+</table>
+</form> 
+</div>
+</td>
+
+<td valign="top">
+<div id="updatediv">
+<h3>Delete/Like/Upvote/QueryByID</h3>
+<form name="idform">
+<table>
+<tr><td> Id of posting </td></tr> <tr><td><input type="text" name="postingId" value="0"></td></tr>
+</table>
+</form>
+</div>
+</td>
+
+<td valign="top">
+<div id="actionsdiv">
+<h3>Perform actions</h3>
+<button id="btn0">Submit posting</button> 
+<p>
+<button id="btn1">Query postings</button> 
+<p>
+<button id="btn2">Delete posting</button> 
+<p>
+<button id="btn3">Upvote posting</button> 
+<p>
+<button id="btn4">Like posting author</button> 
+<p>
+<button id="btn5">Get trending postings</button> 
+<p>
+<button id="btn6">Update</button>
+<p>
+<button id="btn7">QueryByID</button>
+<p>
+<button id="btntest"><em>Test get postings locally</em></button> 
+<p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+
+<h3>Regular Email Digests</h3>
+<div id="regulardigests">
+<form name="regulardigestsform">
+<table>
+<tr> 
+<td>Email address</td> 
+<td> 
+<input type="text" size="40" name="emailaddress" value="TAaddress+yourEID@gmail.com"></td></tr>
+</td>
+</tr>
+<tr> 
+<td>Frequency</td> 
+<td>  
+<select name="emailfrequency">
+<option value="0" selected="selected">5 mins</option>
+<option value="1">60 mins</option>
+<option value="2">1 day</option>
+</select/>
+</td>
+</tr>
+<tr>
+<td>Max Number of Emails</td>
+<td>
+<table>
+<tr>
+<td><input type="radio" name="emailmaxnum" checked = "checked" value="1" /></td>
+<td><input type="radio" name="emailmaxnum" value="2" /></td>
+<td><input type="radio" name="emailmaxnum" value="3" /></td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</form> 
+<button id="btnregulardigests">Create Regularly Scheduled Digests</button> 
+</div>
+<p>
+<p>
+
+<div id="postingslist">
+<h3>List of postings</h3>
+<ul id="ulpostinglist">
+</ul>
+
+</div>
+<p id="testingarea"></p>
+
+</body>
