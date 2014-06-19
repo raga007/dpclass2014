@@ -21,9 +21,9 @@ class AirportScraper implements AirportScraperInterface {
     // utility method, pulls distance from html
     private static double extractDistance(String rawText) {
 	// URL open returns html with distance in this format:
-	// ... </b> kilometres (<b> 1527</b > miles)</p> ...
-	String anchor1 = " kilometres (<b>";
-	String anchor2 = "</b > miles)</p>";
+	// ...  kilometres (1527 miles)</p> ...
+	String anchor1 = " kilometres (";
+	String anchor2 = " miles)</p>";
 	int offset = rawText.indexOf( anchor1 ) + anchor1.length();
 	int end = rawText.indexOf( anchor2 );
 	String distanceString = rawText.substring( offset, end );
