@@ -1,6 +1,0 @@
-package quotes;
-
-message QuoteList {
-  repeated double quote = 1;
-}
-
